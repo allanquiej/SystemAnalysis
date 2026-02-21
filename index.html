@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SCRUM - Metodología</title>
+
+<style>
+:root{
+  /* Fondo base */
+  --bg0:#050812;
+  --bg1:#08152A;
+
+  /* Texto */
+  --text:#FFFFFF;
+  --muted:rgba(255,255,255,.78);
+
+  /* Bordes */
+  --line:rgba(255,255,255,.14);
+
+  /* Paleta alegre */
+  --blue:#21D4FD;   /* azul/cian */
+  --green:#A1FFCE;  /* verde menta */
+  --gold:#FFC857;   /* oro */
+  --silver:#C9D6FF; /* plata suave */
+  --violet:#7C5CFF; /* violeta suave para contraste */
+
+  --shadow: 0 18px 55px rgba(0,0,0,.55);
+  --radius: 18px;
+}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 420px at 12% 8%, rgba(33,212,253,.22), transparent 62%),
+    radial-gradient(900px 520px at 88% 10%, rgba(161,255,206,.18), transparent 58%),
+    radial-gradient(900px 520px at 50% 95%, rgba(255,200,87,.12), transparent 62%),
+    radial-gradient(700px 420px at 10% 92%, rgba(201,214,255,.14), transparent 60%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+  overflow-x:hidden;
+}
+
+.container{
+  width:min(1120px, 92vw);
+  margin:auto;
+  padding:40px 0 60px;
+}
+
+/* Header */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-img{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  border-radius:12px;
+  background:white;
+  padding:6px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.3);
+}
+
+
+.brand h1{
+  margin:0;
+  font-size:18px;
+  letter-spacing:.2px;
+  font-weight:800;
+}
+
+.brand p{
+  margin:2px 0 0;
+  font-size:12.5px;
+  color:var(--muted);
+}
+
+.badge{
+  padding:9px 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+  font-size:12.5px;
+  color:rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+}
+
+/* Hero */
+.hero{
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:28px;
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  box-shadow: var(--shadow);
+  position:relative;
+  overflow:hidden;
+  margin-bottom:22px;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(800px 320px at 15% 10%, rgba(33,212,253,.22), transparent 60%),
+    radial-gradient(800px 320px at 85% 12%, rgba(161,255,206,.18), transparent 60%),
+    radial-gradient(900px 340px at 55% 110%, rgba(255,200,87,.14), transparent 55%),
+    radial-gradient(650px 320px at 20% 100%, rgba(201,214,255,.14), transparent 60%);
+  filter: blur(12px);
+  opacity:.95;
+  pointer-events:none;
+}
+
+.kicker{
+  position:relative;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.9);
+  font-size:12.5px;
+}
+
+.dot{
+  width:10px;height:10px;border-radius:999px;
+  background:linear-gradient(135deg, var(--blue), var(--green));
+  box-shadow:0 0 0 4px rgba(33,212,253,.12);
+}
+
+.hero h2{
+  position:relative;
+  z-index:1;
+  margin:14px 0 10px;
+  font-size: clamp(24px, 3vw, 38px);
+  letter-spacing:-.6px;
+  line-height:1.15;
+}
+
+.hero p{
+  position:relative;
+  z-index:1;
+  margin:0 0 12px;
+  color:rgba(255,255,255,.82);
+  line-height:1.75;
+  font-size:14.5px;
+  /* CAMBIO: quitado max-width para que ocupe TODO el ancho */
+  max-width: none;
+}
+
+.meta{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+}
+
+.meta span{
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.06);
+  font-size:12px;
+  color:rgba(255,255,255,.92);
+}
+
+.meta a{
+  color:#ffffff;
+  text-decoration:none;
+  font-weight:800;
+}
+
+.meta a:hover{
+  text-decoration:underline;
+}
+
+/* Tarjetas */
+.grid{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:16px;
+}
+
+.card{
+  border-radius:18px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+  position:relative;
+  overflow:hidden;
+  box-shadow: 0 14px 30px rgba(0,0,0,.35);
+}
+
+/* borde “metal” (plata/oro) */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:18px;
+  padding:1px;
+  background: linear-gradient(135deg,
+    rgba(201,214,255,.65),
+    rgba(255,200,87,.45),
+    rgba(33,212,253,.35),
+    rgba(161,255,206,.30)
+  );
+  -webkit-mask:
+  linear-gradient(#000 0 0) content-box,
+  linear-gradient(#000 0 0);
+mask:
+  linear-gradient(#000 0 0) content-box,
+  linear-gradient(#000 0 0);
+
+-webkit-mask-composite: xor;
+mask-composite: exclude;
+
+}
+
+.card::after{
+  content:"";
+  position:absolute;
+  inset:auto -80px -90px auto;
+  width:260px;height:260px;
+  filter: blur(10px);
+  opacity:.95;
+  pointer-events:none;
+}
+
+/* Variantes de brillo por tarjeta */
+.v1::after{ background: radial-gradient(circle at 30% 30%, rgba(33,212,253,.22), transparent 60%); }
+.v2::after{ background: radial-gradient(circle at 30% 30%, rgba(161,255,206,.20), transparent 60%); }
+.v3::after{ background: radial-gradient(circle at 30% 30%, rgba(255,200,87,.18), transparent 60%); }
+.v4::after{ background: radial-gradient(circle at 30% 30%, rgba(201,214,255,.18), transparent 60%); }
+.v5::after{ background: radial-gradient(circle at 30% 30%, rgba(124,92,255,.18), transparent 60%); }
+.v6::after{ background: radial-gradient(circle at 30% 30%, rgba(33,212,253,.16), transparent 60%); }
+
+.card h3{
+  margin:0 0 8px;
+  font-size:16px;
+  letter-spacing:.2px;
+  position:relative;
+  z-index:1;
+}
+
+.card p, .card ul{
+  position:relative;
+  z-index:1;
+  color:rgba(255,255,255,.82);
+  line-height:1.65;
+  font-size:13.8px;
+  margin:0;
+}
+
+.card ul{
+  padding-left:18px;
+  margin-top:10px;
+}
+
+.card li{ margin:6px 0; }
+
+.callout{
+  margin-top:16px;
+  padding:14px 16px;
+  border-radius:16px;
+  border:1px dashed rgba(255,255,255,.18);
+  background: rgba(255,200,87,.08);
+  color: rgba(255,255,255,.88);
+  line-height:1.65;
+  font-size:13.2px;
+}
+
+/* Secciones inferiores */
+.section{
+  border-radius:22px;
+  padding:22px;
+  border:1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+  box-shadow: 0 14px 36px rgba(0,0,0,.35);
+  margin-top:18px;
+}
+
+.section h3{
+  margin:0 0 10px;
+  font-size:16px;
+}
+
+.link-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.05);
+}
+
+.pill{
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+  font-size:12px;
+  white-space:nowrap;
+}
+
+.article-link{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:#ffffff;
+  text-decoration:none;
+  font-weight:900;
+  letter-spacing:.2px;
+}
+
+.article-link:hover{
+  text-decoration:underline;
+}
+
+/* Footer */
+footer{
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.14);
+  text-align:center;
+  color: rgba(255,255,255,.85);
+  font-size:13px;
+  line-height:1.7;
+}
+
+/* Responsive */
+@media (max-width: 740px){
+  .hero{ padding:22px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <header>
+    <div class="brand">
+      <img src="umg.png" alt="Universidad Mariano Gálvez" class="logo-img">
+      <div>
+        <h1>Estrategia Formal</h1>
+        <p>Metodología Ágil</p>
+      </div>
+    </div>
+    <div class="badge">SCRUM</div>
+  </header>
+
+  <!-- ARTÍCULO PRINCIPAL -->
+  <section class="hero">
+    <div class="kicker"><span class="dot"></span> Estrategia Formal SCRUM</div>
+    <h2>Scrum: El Framework Ágil para Dominar Proyectos Complejos</h2>
+
+    <p>
+      <strong>Scrum</strong> Scrum es un marco de trabajo (framework) ágil diseñado para gestionar proyectos complejos mediante un enfoque iterativo e incremental. A diferencia de las metodologías tradicionales "en cascada", Scrum no intenta predecir cada detalle del proyecto desde el inicio; en su lugar, se basa en el control de procesos empírico, donde el conocimiento nace de la experiencia y las decisiones se toman según lo que se observa en tiempo real. Esto permite que el equipo entregue valor de manera continua en ciclos cortos llamados Sprints, asegurando que el producto final sea realmente lo que el cliente necesita, incluso si los requisitos cambian durante el camino.
+
+A nivel técnico, Scrum se estructura sobre tres pilares fundamentales: transparencia, inspección y adaptación. Esto significa que todo el proceso y los artefactos (como el Product Backlog) deben ser visibles para los involucrados, permitiendo una inspección constante del progreso hacia el objetivo del Sprint. Si se detectan desviaciones o problemas técnicos, el marco permite una adaptación inmediata para corregir el rumbo. Esta capacidad de respuesta es vital en el desarrollo de software moderno, donde la integración técnica y la calidad del código deben validarse constantemente para evitar la acumulación de deuda técnica.
+
+La dinámica natural de Scrum se centra en la autoorganización de un equipo multidisciplinario. En lugar de recibir órdenes verticales, el equipo (compuesto por el Product Owner, el Scrum Master y los Developers) colabora para definir cómo alcanzar las metas técnicas. El éxito reside en el ritmo sostenible y en la comunicación constante a través de sus eventos (como la Daily Scrum o la Retrospective). Este flujo de trabajo transforma la gestión de proyectos en un organismo vivo que aprende de sus errores técnicos y operativos en cada iteración, optimizando la productividad y la calidad del entregable final.
+    </p>
+
+    <p>
+      El corazón de Scrum es el <strong>Scrum Team</strong>: un equipo pequeño (usualmente ≤ 10 personas) que trabaja como una sola unidad.
+      Este equipo se enfoca en lograr un objetivo del producto (<strong>Product Goal</strong>) y entregar un <strong>Increment</strong>
+      útil al final de cada Sprint. La idea es entregar valor constante, reducir riesgos temprano y mejorar el producto de forma continua.
+    </p>
+
+    <div class="meta">
+      <span>⏱️ Trabajo iterativo: Sprints</span>
+      <span>🎯 Enfoque: valor continuo</span>
+      <span>🧩 Equipo pequeño y colaborativo</span>
+      <span>📌 Fuente base: Scrum.org</span>
+    </div>
+
+    <div class="grid">
+
+      <article class="card v1">
+        <h3>¿Qué es el Scrum Team?</h3>
+        <p>
+          Es la unidad de personas responsable de entregar valor en Scrum. Está compuesto por
+          <strong>Product Owner</strong>, <strong>Scrum Master</strong> y <strong>Developers</strong>.
+          Trabajan como un solo equipo y comparten la responsabilidad de producir un Increment usable en cada Sprint.
+        </p>
+      </article>
+
+      <article class="card v2">
+        <h3>¿Para qué sirve Scrum?</h3>
+        <p>
+          Sirve para gestionar proyectos donde hay incertidumbre, cambios frecuentes o requisitos que evolucionan.
+          Permite entregar resultados visibles más rápido, recibir feedback temprano y evitar descubrir problemas hasta el final.
+        </p>
+      </article>
+
+      <article class="card v3">
+        <h3>Objetivo principal</h3>
+        <ul>
+          <li>Alcanzar el <strong>Product Goal</strong> (meta del producto).</li>
+          <li>Entregar un <strong>Increment</strong> usable al final de cada Sprint.</li>
+          <li>Generar <strong>valor real</strong> para usuarios y negocio.</li>
+        </ul>
+      </article>
+
+      <article class="card v4">
+        <h3>¿Cómo funciona (pasos generales)?</h3>
+        <ul>
+          <li>Se prioriza el trabajo en un <strong>Product Backlog</strong>.</li>
+          <li>Se planifica un Sprint con un <strong>Sprint Goal</strong>.</li>
+          <li>Se construye el Increment con calidad.</li>
+          <li>Se revisa el resultado y se mejora el proceso para el siguiente Sprint.</li>
+        </ul>
+      </article>
+
+      <article class="card v5">
+        <h3>Roles y responsabilidades</h3>
+        <ul>
+          <li><strong>Product Owner:</strong> define valor y prioridades.</li>
+          <li><strong>Scrum Master:</strong> guía Scrum y mejora la efectividad.</li>
+          <li><strong>Developers:</strong> construyen el Increment y aseguran calidad.</li>
+        </ul>
+      </article>
+
+      <article class="card v6">
+        <h3>Beneficios clave</h3>
+        <ul>
+          <li>Entrega frecuente de avances.</li>
+          <li>Mayor adaptabilidad ante cambios.</li>
+          <li>Transparencia del progreso.</li>
+          <li>Mejora continua del equipo y del producto.</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <div class="callout">
+      <strong>Idea clave:</strong> Scrum busca entregar valor de forma continua y aprender en cada Sprint.
+      Por eso el Scrum Team es pequeño, colaborativo y con responsabilidades claras orientadas al resultado.
+    </div>
+  </section>
+
+  <!-- LINK DEL ARTÍCULO (clickeable) -->
+  <section class="section">
+    <h3>Link del artículo (recurso publicado)</h3>
+
+    <div class="link-row">
+      <span class="pill">🔗 Artículo</span>
+      <a class="article-link"
+         href="https://www.scrum.org/learning-series/what-is-scrum/the-scrum-team"
+         target="_blank" rel="noopener">
+        https://www.scrum.org/learning-series/what-is-scrum/the-scrum-team
+      </a>
+    </div>
+  </section>
+
+  <!-- RESUMEN (editable desde el código, no input en pantalla) -->
+  <section class="section">
+    <h3>Resumen</h3>
+
+    <!-- EDITA ESTE TEXTO DIRECTAMENTE EN EL CÓDIGO -->
+    <p style="margin:0;color:rgba(255,255,255,.86);line-height:1.7;">
+      Scrum es un marco de trabajo ágil diseñado para gestionar proyectos complejos mediante un enfoque iterativo e incremental. Se basa en el control de procesos empírico, donde las decisiones se fundamentan en la experiencia y resultados reales. El trabajo se divide en ciclos fijos llamados Sprints, donde un equipo autoorganizado (Product Owner, Scrum Master y Developers) entrega incrementos de producto funcionales. Sus pilares son la transparencia, inspección y adaptación, permitiendo ajustar prioridades y corregir errores técnicos rápidamente. Es la estructura ideal para entornos donde los requisitos cambian constantemente y se busca maximizar el valor entregado al cliente.
+    </p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    Hecho por: <strong>Allan Quiej</strong><br/>
+    Curso: <strong>Análisis de Sistemas 1</strong><br/>
+    Ing. <strong>Aura Castellanos</strong><br/>
+    Universidad <strong>Mariano Gálvez de Guatemala</strong>
+  </footer>
+
+</div>
+</body>
+</html>
